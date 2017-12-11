@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse.ant.import?>
+<project basedir="." default="build" name="dynamoDBJavaLabMore">
+    <target name="allclean" depends="clean">
+            <delete dir="junit"/>
+    </target>
+	
+    <target name="createtable" depends="allclean, build, InfectionsTableCreator" />
+    <target name="createtabletest" depends="allclean, build, InfectionsTableCreatorTest" />
+    
+    <target name="uploaddata" depends="allclean, build, InfectionsDataUploader" />
+    <target name="uploaddatatest" depends="allclean, build">
+    	<mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr" showoutput="true">
+            <formatter type="xml"/>
+            <test name="InfectionsDataUploaderTest" todir="${junit.output.dir}"/>
+            <classpath refid="dynamoDBJavaLab.classpath"/>
+        </junit>	
+    </target>
+    
+    <target name="getstats" depends="allclean, build, InfectionStatistics" />
+    <target name="getstatstest" depends="allclean, build, InfectionStatisticsTest" />
+	
+	 <target name="linkreport" depends="allclean, build, PatientReportLinker" />
+	 <target name="linkreporttest" depends="allclean, build, PatientReportLinkerTest" />
+    
+
+</project>
